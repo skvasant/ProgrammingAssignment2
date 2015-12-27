@@ -52,13 +52,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
-  m <- x$getinv()
-  if(!is.null(m)) {
+  m <- x$getinv() ## get the value of the inverse
+  if(!is.null(m)) { ## check if the inverse is calculated already and matrix has not changed
     message("getting cached data")
-    return(m)
+    return(m) ## return the cached inverse value and exit the funtion
   }
-  data <- x$get()
-  m <- solve(data, ...)
-  x$setinv(m)
+  ## at this point it is determined the matrix has changed or the funtion is called the
+  ## first time
+  data <- x$get() ## get the value of the matrix
+  m <- solve(data, ...) ## get the inverse of the matrix
+  x$setinv(m) ## set the value of the inverse
   m
 }
